@@ -28,7 +28,7 @@ namespace GSALib.GSA
         public static int MAX_RESULTS = 1000;
         public static int MAX_RESULTS_PER_QUERY = 100;
         private QueryBuilder query;
-        private QueryTerm queryTerm;
+        public QueryTerm queryTerm { get; set; }
 
         #endregion
 
@@ -36,6 +36,7 @@ namespace GSALib.GSA
 
         public Query()
         {
+            queryTerm = new QueryTerm();
             query = new QueryBuilder("", null);
             query.setOutput(Output.XML_NO_DTD.getValue());            
         }
@@ -184,6 +185,7 @@ namespace GSALib.GSA
 
         public String getValue()
         {
+            query.setQ(queryTerm.getValue());
             return query.getValue();
         }
 
@@ -247,9 +249,9 @@ namespace GSALib.GSA
 
         #region Constructor
 
-        public QueryTerm(String queryString)
+        public QueryTerm()
         {
-            this.queryString = queryString;
+
         }
 
         #endregion
