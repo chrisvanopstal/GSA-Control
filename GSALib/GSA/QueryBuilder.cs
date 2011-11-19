@@ -149,6 +149,11 @@ namespace GSALib.GSA
             this.filter = filter;
         }
 
+        public char getFilter()
+        {
+            return this.filter;
+        }
+
         public void setGetfields(String[] getfields)
         {
             this.getfields = getfields;

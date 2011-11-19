@@ -80,6 +80,16 @@ namespace GSALib.GSA
             query.setFilter(filtering.getValue());
         }
 
+        public void setFilter(char filtering)
+        {
+            query.setFilter(filtering);
+        }
+
+        public char getFilter()
+        {
+            return query.getFilter();
+        }
+
         public void setQueryTerm(QueryTerm queryTerm)
         {
             this.queryTerm = queryTerm;
