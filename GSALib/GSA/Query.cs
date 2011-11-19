@@ -192,6 +192,11 @@ namespace GSALib.GSA
             return queryTerm.getValue();
         }
 
+        public void setAs_sitesearch(String as_sitesearch)
+        {
+            query.setAs_sitesearch(as_sitesearch);
+        }
+
         #endregion
     }
 
