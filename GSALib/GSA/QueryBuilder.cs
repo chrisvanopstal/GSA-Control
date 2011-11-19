@@ -236,6 +236,11 @@ namespace GSALib.GSA
             this.sort = sort;
         }
 
+        public string getSort()
+        {
+            return this.sort;
+        }
+
         public void setStart(long start)
         {
             this.start = start;

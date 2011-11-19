@@ -156,6 +156,16 @@ namespace GSALib.GSA
             query.setPartialfields(partialFields, orIfTrueAndIfFalse);
         }
 
+        public void setSort(string sort) 
+        {
+            query.setSort(sort);
+        }
+
+        public string getSort()
+        {
+            return query.getSort();
+        }
+
         public void setSortByDate(bool asc, char mode)
         {
             query.setSort("date:" + (asc
