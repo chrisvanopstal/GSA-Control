@@ -101,6 +101,11 @@ namespace GSALib.GSA
             query.setAs_epq(phrase);
         }
 
+        public void setExcludeQueryTerms(string excludeTerms)
+        {
+            query.setAs_eq(excludeTerms);
+        }
+
         public void setInputEncoding(String inputEncoding)
         {
             query.setIe(inputEncoding);
