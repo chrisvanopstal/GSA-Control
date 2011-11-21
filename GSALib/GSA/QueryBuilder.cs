@@ -23,54 +23,54 @@ namespace GSALib.GSA
     {
         #region Variables
 
-        private char as_dt; // {i, e}:{include [as_sitesearch], exclude [as_sitesearch]}
-        private String as_epq; // additional query terms
-        private String as_eq; // exclude terms
-        private String as_lq; // pages linking to this url
-        private String as_occt; // {any, title, URL}:{search anywhere on page, search in title, search in url}
-        private String[] as_oq; // any of these
-        private String[] as_q;
+        public char as_dt { get; set; } // {i, e}:{include [as_sitesearch], exclude [as_sitesearch]}
+        public String as_epq { get; set; } // additional query terms
+        public String as_eq { get; set; } // exclude terms
+        public String as_lq { get; set; } // pages linking to this url
+        public String as_occt { get; set; } // {any, title, URL}:{search anywhere on page, search in title, search in url}
+        public String[] as_oq { get; set; } // any of these
+        public String[] as_q { get; set; }
 
-        private String q; // *REQUIRED when sitesearch specified* Search query
+        public String q { get; set; } // *REQUIRED when sitesearch specified* Search query
 
-        private String as_sitesearch; // *MAX 118 after URL encoding* set the value for this into "site"
-        private String sitesearch; // needs q to be supplied
-        private String[] sites; // *REQUIRED* (OR-ed) collection of "collections" ()
+        public String as_sitesearch { get; set; } // *MAX 118 after URL encoding* set the value for this into "site"
+        public String sitesearch { get; set; } // needs q to be supplied
+        public String[] sites { get; set; } // *REQUIRED* (OR-ed) collection of "collections" ()
 
-        private String client; // *REQUIRED* string specifying valid frontend      (default -needs to be speficied- is default_frontend)
-        private String output; // *REQUIRED* format for search results      (default -needs to be specified- is xml_no_dtd)
-        private String proxycustom; // {<HOME/>,<ADVANCED/>,<TEST/>}
-        private bool proxyreload; // {1} force reload of serverside stylesheet (else default reloaded after 15 mins)
-        private String proxystylesheet; // if output==xml_no_dtd then {Omitted,}
+        public String client { get; set; } // *REQUIRED* string specifying valid frontend      (default -needs to be speficied- is default_frontend)
+        public String output { get; set; } // *REQUIRED* format for search results      (default -needs to be specified- is xml_no_dtd)
+        public String proxycustom { get; set; } // {<HOME/>,<ADVANCED/>,<TEST/>}
+        public bool proxyreload { get; set; } // {1} force reload of serverside stylesheet (else default reloaded after 15 mins)
+        public String proxystylesheet { get; set; } // if output==xml_no_dtd then {Omitted,}
 
-        private char access; // {p, s, a}:{public, secure, all}
-        private char filter; // 0,1,p,s  (default is 1)
-        private String lr; // Language restrict
+        public char access { get; set; } // {p, s, a}:{public, secure, all}
+        public char filter { get; set; } // 0,1,p,s  (default is 1)
+        public String lr { get; set; } // Language restrict
 
-        private String ie; // Input encoding      (default is latin1)
-        private String oe; // Output encoding     (default is UTF8)
+        public String ie { get; set; } // Input encoding      (default is latin1)
+        public String oe { get; set; } // Output encoding     (default is UTF8)
 
-        private long start; // {0..999} scroll into the search results (constraint: start+num <= 1000)
-        private int num; // {1..100} max results per request     (default is 10)
-        private byte numgm; // {0..5} max num of keymatches per result     (default is 3)
+        public long start { get; set; } // {0..999} scroll into the search results (constraint: start+num <= 1000)
+        public int num { get; set; } // {1..100} max results per request     (default is 10)
+        public byte numgm { get; set; } // {0..5} max num of keymatches per result     (default is 3)
 
-        private String[] getfields; // get meta tags
-        private Hashtable partialfields; // meta tag names and partial-values
-        private bool partialFieldsOr = true; // used in conjunction with partialFields
+        public String[] getfields { get; set; } // get meta tags
+        public Hashtable partialfields { get; set; } // meta tag names and partial-values
+        public bool partialFieldsOr = true; // used in conjunction with partialFields
 
-        private Hashtable requiredfields; // meta tag names and complete-values
-        private bool requiredFieldsOr = true; // used in conjunction with requiredFields
+        public Hashtable requiredfields { get; set; } // meta tag names and complete-values
+        public bool requiredFieldsOr = true; // used in conjunction with requiredFields
 
-        private String sort; // Only date is currently supported
+        public String sort; // Only date is currently supported
 
-        private char AS_DT_INCLUDE = 'i';
-        private char AS_DT_EXCLUDE = 'e';
-        private char FILTER_DUP_SNIPPET_AND_DIRECTORY = '1';
-        private char FILTER_OFF = '0';
-        private char FILTER_DUP_SNIPPET = 'p';
-        private char FILTER_DUP_DIRECTORY = 's';
-        private char _DEFAULT_ACCESS = 'p';
-        private String _DEFAULT_OUTPUT = "xml_no_dtd";
+        public char AS_DT_INCLUDE = 'i';
+        public char AS_DT_EXCLUDE = 'e';
+        public char FILTER_DUP_SNIPPET_AND_DIRECTORY = '1';
+        public char FILTER_OFF = '0';
+        public char FILTER_DUP_SNIPPET = 'p';
+        public char FILTER_DUP_DIRECTORY = 's';
+        public char _DEFAULT_ACCESS = 'p';
+        public string _DEFAULT_OUTPUT = "xml_no_dtd";
 
         #endregion
 

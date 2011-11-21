@@ -167,7 +167,7 @@ namespace GSALib.GSA
         /// <returns></returns>
         public StreamReader search(Query query)
         {
-            if (query.getAccess() != 'p')
+            if (query.Access.getValue() != 'p')
                 this.NeedCredentails = true;
 
             return search(query.getValue());

@@ -30,9 +30,27 @@ namespace GSALib.GSA
         private QueryBuilder query;
         public QueryTerm queryTerm { get; set; }
 
-        #endregion
-
-        #region Constructor
+        public string[] SiteCollections { get { return query.sites; } set { query.sites = value; } }
+        public string Frontend { get { return query.client; } set { query.client = value; }}
+        public string OutputFormat { get { return query.output; } set { query.output = value; } }
+        public int MaxResults { get { return query.num; } set { query.num = Math.Min(value, MAX_RESULTS); } }
+        public byte KeyMatches { get { return query.numgm; } set { query.numgm = value; } }
+        public string SearchScope { get { return query.as_occt; } set { query.as_occt = value; } }
+        public char Filter { get { return query.filter; } set { query.filter = value; } }
+        public string QueryTerm { get { return query.q; } set { query.q = value; } }
+        public string[] OrQueryTerms { get { return query.as_oq; } set { query.as_oq = value; } }
+        public string[] AndQueryTerms { get { return query.as_q; } set { query.as_q = value; } }
+        public string ExactPhraseQueryTerm { get { return query.as_epq; } set { query.as_epq = value; } }
+        public string ExcludedQueryTerms { get { return query.as_eq; } set { query.as_eq = value; } }
+        public string InputEncoding { get { return query.ie; } set { query.ie = value; } }
+        public string OutputEncoding { get { return query.oe; } set { query.oe = value; } }
+        public string Language { get { return query.lr; } set { query.lr = value; } }
+        public string Sort { get { return query.sort; } set { query.sort = value; } }
+        public long ScrollAhead { get { return query.start; } set { query.start = value; } }
+        public Access Access { get { return new Access(query.access); } set { query.access = value.getValue(); } }
+        public string ProxyCustom { get { return query.proxycustom; } set { query.proxycustom = value; } }
+        public string ProxyStylesheet { get { return query.proxystylesheet; } set { query.proxystylesheet = value; } }
+        public bool ProxyReload { get { return query.proxyreload; } set { query.proxyreload = value; } }   
 
         public Query()
         {
@@ -41,101 +59,7 @@ namespace GSALib.GSA
             query.setOutput(Output.XML_NO_DTD.getValue());            
         }
 
-        #endregion
-
-        #region Get/Set Properties
-
-        public void setSiteCollections(String[] siteCollections)
-        {
-            query.setSites(siteCollections);
-        }
-        
-        public void setFrontend(String frontend)
-        {
-            query.setClient(frontend);
-        }
-
-        public void setOutputFormat(Output of)
-        {
-            query.setOutput(of.getValue());
-        }
-
-        public void setMaxResults(int maxResults)
-        {
-            query.setNum(Math.Min(maxResults, MAX_RESULTS));
-        }
-
-        public void setNumKeyMatches(byte keyMatches)
-        {
-            query.setNumgm(keyMatches);
-        }
-
-        public void setSearchScope(SearchRegion searchRgn)
-        {
-            query.setAs_occt(searchRgn.getValue());
-        }
-
-        public void setFilter(Filtering filtering)
-        {
-            query.setFilter(filtering.getValue());
-        }
-
-        public void setFilter(char filtering)
-        {
-            query.setFilter(filtering);
-        }
-
-        public char getFilter()
-        {
-            return query.getFilter();
-        }
-
-        public void setQueryTerm(QueryTerm queryTerm)
-        {
-            this.queryTerm = queryTerm;
-            query.setQ(queryTerm.getValue());
-        }
-
-        public void setOrQueryTerms(String[] orTerms)
-        {
-            query.setAs_oq(orTerms);
-        }
-
-        public void setAndQueryTerms(String[] andTerms)
-        {
-            query.setAs_q(andTerms);
-        }
-
-        public void setExactPhraseQueryTerm(String phrase)
-        {
-            query.setAs_epq(phrase);
-        }
-
-        public void setExcludeQueryTerms(string excludeTerms)
-        {
-            query.setAs_eq(excludeTerms);
-        }
-
-        public void setInputEncoding(String inputEncoding)
-        {
-            query.setIe(inputEncoding);
-        }
-
-        public void setOutputEncoding(String outputEncoding)
-        {
-            query.setOe(outputEncoding);
-        }
-
-        public void setLanguage(String language)
-        {
-            query.setLr(language);
-        }
-
-        public void setFetchMetaFields(String[] fields)
-        {
-            query.setGetfields(fields);
-        }
-
+        public string[] GetMetaDataFields { get { return query.getfields; } set { query.getfields = value; } }
         public void setRequiredMetaFields(Hashtable requiredFields)
         {
             query.setRequiredfields(requiredFields, true);
@@ -155,17 +79,7 @@ namespace GSALib.GSA
         {
             query.setPartialfields(partialFields, orIfTrueAndIfFalse);
         }
-
-        public void setSort(string sort) 
-        {
-            query.setSort(sort);
-        }
-
-        public string getSort()
-        {
-            return query.getSort();
-        }
-
+        
         public void setSortByDate(bool asc, char mode)
         {
             query.setSort("date:" + (asc
@@ -176,36 +90,6 @@ namespace GSALib.GSA
         public void unsetSortByDate()
         {
             query.setSort(null);
-        }
-
-        public void setScrollAhead(int n)
-        {
-            query.setStart(n);
-        }
-
-        public void setAccess(Access access)
-        {
-            query.setAccess(access.getValue());
-        }
-
-        public char getAccess()
-        {
-            return query.getAccess();
-        }
-
-        public void setProxycustom(String proxycustom)
-        {
-            query.setProxycustom(proxycustom);
-        }
-
-        public void setProxystylesheet(String proxystylesheet)
-        {
-            query.setProxystylesheet(proxystylesheet);
-        }
-
-        public void setProxyReload(bool force)
-        {
-            query.setProxyreload(force);
         }
 
         public String getValue()

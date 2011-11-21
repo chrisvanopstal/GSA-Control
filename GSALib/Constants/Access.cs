@@ -42,7 +42,7 @@ namespace GSALib.Constants
 
         #region Constructor
 
-        private Access(char value)
+        public Access(char value)
         {
             this.value = value;
         }
