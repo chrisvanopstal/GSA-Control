@@ -174,6 +174,7 @@ namespace GSALib.Utils
                     String mimeType = attributes["MIME"] == null ? "" : attributes["MIME"].ToString();
                     String indentation = attributes["L"] == null ? "1" : attributes["L"].ToString();
                     currResult.Indentation = indentation == null ? 1 : Int32.Parse(indentation);
+                    currResult.Index = Convert.ToInt32(attributes["N"].ToString());
                     currResult.MimeType = mimeType;
                     break;
                 case XMLTags.PARAM:

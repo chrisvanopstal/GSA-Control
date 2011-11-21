@@ -24,6 +24,7 @@ namespace GSALib.GSA
     {
         #region Variables
 
+        public int Index { get; set; }
         public String MimeType { get; set; }
         public int Indentation { get; set; }
         public String Url { get; set; }
