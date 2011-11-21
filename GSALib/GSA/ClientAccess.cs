@@ -95,17 +95,16 @@ namespace GSALib.GSA
         /// </summary>       
         private void InitializeHost(String protocol, String host, int port, String path)
         {
-            if (host != null)
-            {
+            if (host != null) {
                 this.protocol = protocol;
                 this.host = host;
                 this.port = port;
                 this.path = path;
+            } else {
+                try { this.GSAHostAddress = this.GetConfig(); } 
+                catch (GSALib.Exceptions.GSAHostNotFoundInAppSettingsException ex) { throw ex; } 
+                catch (FileNotFoundException ex) { throw ex; }
             }
-
-            try { this.GSAHostAddress = this.GetConfig(); }
-            catch (GSALib.Exceptions.GSAHostNotFoundInAppSettingsException ex) { throw ex; }
-            catch (FileNotFoundException ex) { throw ex; }
 
         }
 

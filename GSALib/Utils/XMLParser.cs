@@ -173,8 +173,8 @@ namespace GSALib.Utils
                 case XMLTags.R:
                     String mimeType = attributes["MIME"] == null ? "" : attributes["MIME"].ToString();
                     String indentation = attributes["L"] == null ? "1" : attributes["L"].ToString();
-                    currResult.setIndentation(indentation == null ? 1 : Int32.Parse(indentation));
-                    currResult.setMimeType(mimeType);
+                    currResult.Indentation = indentation == null ? 1 : Int32.Parse(indentation);
+                    currResult.MimeType = mimeType;
                     break;
                 case XMLTags.PARAM:
                     String name = attributes["name"] == null ? "" : attributes["name"].ToString();
@@ -216,15 +216,15 @@ namespace GSALib.Utils
                         {
                             encoding = "UTF-8";
                         }
-                        currResult.setCacheDocEncoding(encoding);
-                        currResult.setCacheDocId(cid);
-                        currResult.setCacheDocSize(size);
+                        currResult.CacheDocEncoding = encoding;
+                        currResult.CacheDocId = cid;
+                        currResult.CacheDocSize = size;
                     }
                     break;
                 case XMLTags.FS:
                     String fieldName = attributes["NAME"] == null ? "" : attributes["NAME"].ToString();
                     String fieldValue = attributes["VALUE"] == null ? "" : attributes["VALUE"].ToString();
-                    currResult.addField(fieldName, fieldValue);
+                    currResult.Fields.Add(fieldName, fieldValue);
                     break;
                 case XMLTags.FI:
                     response.setFiltered(true);
@@ -232,7 +232,7 @@ namespace GSALib.Utils
                 case XMLTags.MT:
                     String metaName = attributes["N"] == null ? "" : attributes["N"].ToString();
                     String metaValue = attributes["V"] == null ? "" : attributes["V"].ToString();
-                    currResult.addMeta(metaName, metaValue);
+                    currResult.Metas.Add(metaName, metaValue);
                     break;
                 case XMLTags.Spelling:
                     inSpelling = true;
@@ -358,25 +358,25 @@ namespace GSALib.Utils
                     inResult = false;
                     break;
                 case XMLTags.U:
-                    currResult.setUrl(contentBuff.ToString());
+                    currResult.Url = contentBuff.ToString();
                     break;
                 case XMLTags.UE:
-                    currResult.setEscapedUrl(contentBuff.ToString());
+                    currResult.EscapedUrl = contentBuff.ToString();
                     break;
                 case XMLTags.T:
-                    currResult.setTitle(contentBuff.ToString());
+                    currResult.Title = contentBuff.ToString();
                     break;
                 case XMLTags.RK:
-                    currResult.setRating(Int32.Parse(contentBuff.ToString()));
+                    currResult.Rating = Int32.Parse(contentBuff.ToString());
                     break;
                 case XMLTags.S:
-                    currResult.setSummary(contentBuff.ToString());
+                    currResult.Summary = contentBuff.ToString();
                     break;
                 case XMLTags.LANG:
-                    currResult.setLanguage(contentBuff.ToString());
+                    currResult.Language = contentBuff.ToString();
                     break;
                 case XMLTags.CRAWLDATE:
-                    currResult.setCrawelDate(contentBuff.ToString());
+                    currResult.CrawelDate = contentBuff.ToString();
                     break;
             }
         }
