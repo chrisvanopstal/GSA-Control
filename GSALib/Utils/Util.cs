@@ -179,6 +179,31 @@ namespace GSALib.Utils
             return retval;
         }
 
+        /// <summary>
+        /// Extension methods that overloads IndexOfAny to allow finding 
+        /// the index of an array of strings.
+        /// </summary>
+        /// <param name="test"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static int IndexOfAny(this string test, string[] values)
+        {
+            int first = -1;
+            foreach (string item in values) {
+                int i = test.IndexOf(item);
+                if (i > 0) {
+                    if (first > 0) {
+                        if (i < first) {
+                            first = i;
+                        }
+                    } else {
+                        first = i;
+                    }
+                }
+            }
+            return first;
+        }
+
         #endregion
     }
 }
