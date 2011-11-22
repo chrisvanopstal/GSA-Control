@@ -227,6 +227,7 @@ namespace GSALib.GSA
             ExcludeFiletype = new ArrayList();
             AllInTitleTerms = new ArrayList();
             AllInUrlTerms = new ArrayList();
+            IncludeSite = true;
         }
 
         /// <summary>
@@ -238,7 +239,7 @@ namespace GSALib.GSA
             // pad the querystring with a space to make our job easier
             queryString += _SP;
 
-            string[] flagArray = new string[] { _IN_TITLE, _NOT_IN_TITLE, _IN_URL, _NOT_IN_URL, _INCLUDE_FILETYPE, _EXCLUDE_FILETYPE, _INCLUDE_SITE, _EXCLUDE_SITE, _CACHE, _INFO, _LINK, _ALL_IN_TITLE, _ALL_IN_URL };
+            string[] flagArray = new string[] { _NOT_IN_TITLE, _NOT_IN_URL, _EXCLUDE_FILETYPE, _EXCLUDE_SITE, _IN_TITLE, _IN_URL, _INCLUDE_FILETYPE, _INCLUDE_SITE, _CACHE, _INFO, _LINK, _ALL_IN_TITLE, _ALL_IN_URL };
             foreach (string flag in flagArray) {
                 // loop through all instances of the flag
                 while (queryString.Contains(flag)) {
@@ -252,7 +253,7 @@ namespace GSALib.GSA
                         int nextFlagIndex = queryString.IndexOfAny(flagArray);
                         extract = queryString.Substring(startIndex, nextFlagIndex != -1 ? nextFlagIndex : queryString.Length - startIndex);
                     } else { // capture till first space
-                        extract = queryString.Substring(startIndex, queryString.IndexOf(_SP, startIndex));
+                        extract = queryString.Substring(startIndex, queryString.IndexOf(_SP, startIndex) - startIndex);
                     }
 
                     // remove the extract from our querystring
@@ -304,7 +305,7 @@ namespace GSALib.GSA
             }
 
             // anything that is left over is the querystring
-            this.QueryString = queryString;
+            this.QueryString = queryString.Trim();
         }
         #endregion
 
