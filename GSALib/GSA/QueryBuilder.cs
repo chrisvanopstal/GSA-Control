@@ -83,6 +83,11 @@ namespace GSALib.GSA
             this.access = _DEFAULT_ACCESS;
             this.requiredfields = new Hashtable();
             this.partialfields = new Hashtable();
+
+            this.as_q = new string[0];
+            this.as_oq = new string[0];
+            this.sites = new string[0];
+            this.getfields = new string[0];
         }
 
         #endregion
