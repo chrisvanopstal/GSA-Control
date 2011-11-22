@@ -115,21 +115,77 @@ namespace GSALib.GSA
     public sealed class QueryTerm
     {
         #region Variables
-        private ArrayList inTitleTerms = new ArrayList();
-        private ArrayList notInTitleTerms = new ArrayList();
-        private ArrayList inUrlTerms = new ArrayList();
-        private ArrayList notInUrlTerms = new ArrayList();
-        private ArrayList includeFiletype = new ArrayList();
-        private ArrayList excludeFiletype = new ArrayList();
-        private ArrayList allInTitleTerms = new ArrayList();
-        private ArrayList allInUrlTerms = new ArrayList();
-        private String site;
-        private bool includeSite;
-        private String dateRange;
-        private String webDocLocation;
-        private String cacheDocLocation;
-        private String link;
-        private String queryString;
+
+        /// <summary>
+        /// Restricts the results to documents containing that word in the title.
+        /// </summary>
+        public ArrayList InTitleTerms { get; set; }
+
+        /// <summary>
+        /// Restricts the results to documents NOT containing that word in the title.
+        /// </summary>
+        public ArrayList NotInTitleTerms { get; set; }
+
+        /// <summary>
+        /// Restricts the results to documents containing that word in the result URL.
+        /// </summary>
+        public ArrayList InUrlTerms { get; set; }
+
+        /// <summary>
+        /// Restricts the results to documents NOT containing that word in the result URL.
+        /// </summary>
+        public ArrayList NotInUrlTerms { get; set; }
+
+        /// <summary>
+        /// Filters the results to include only documents with the specified file extension.
+        /// </summary>
+        public ArrayList IncludeFiletype { get; set; }
+
+        /// <summary>
+        /// Filters the results to exclude documents with the specified file extension.
+        /// </summary>
+        public ArrayList ExcludeFiletype { get; set; }
+
+        /// <summary>
+        /// Restricts the results to those with all of the query words in the result title.
+        /// </summary>
+        public ArrayList AllInTitleTerms { get; set; }
+
+        /// <summary>
+        /// Restricts the results to those with all of the query words in the result URL.
+        /// </summary>
+        public ArrayList AllInUrlTerms { get; set; }
+
+        /// <summary>
+        /// Lists web pages that have links to the specified web page
+        /// </summary>
+        public String Site { get; set; }
+        public bool IncludeSite { get; set; }
+
+        /// <summary>
+        /// Restrict search to documents with modification dates that fall within a time frame.
+        /// </summary>
+        public String DateRange { get; set; }
+
+        /// <summary>
+        /// Returns a single result for the specified URL if the URL exists in the index
+        /// </summary>
+        public String WebDocLocation { get; set; }
+
+        /// <summary>
+        /// Returns the cached HTML version of the specified web document that the Google search crawled.
+        /// </summary>
+        public String CacheDocLocation { get; set; }
+
+        /// <summary>
+        /// Lists web pages that have links to the specified web page.
+        /// </summary>
+        public String Link { get; set; }
+
+        /// <summary>
+        /// The main query terms entered by the user.
+        /// </summary>
+        public String QueryString { get; set; }
 
         private const String _IN_TITLE = "intitle:";
         private const String _NOT_IN_TITLE = "-intitle:";
@@ -152,12 +208,25 @@ namespace GSALib.GSA
         #region Constructor
         public QueryTerm()
         {
-
+            Init();
         }
 
         public QueryTerm(string queryString)
         {
+            Init();
             this.Populate(queryString);
+        }
+
+        private void Init()
+        {
+            InTitleTerms = new ArrayList();
+            NotInTitleTerms = new ArrayList();
+            InUrlTerms = new ArrayList();
+            NotInUrlTerms = new ArrayList();
+            IncludeFiletype = new ArrayList();
+            ExcludeFiletype = new ArrayList();
+            AllInTitleTerms = new ArrayList();
+            AllInUrlTerms = new ArrayList();
         }
 
         /// <summary>
@@ -187,45 +256,45 @@ namespace GSALib.GSA
                     }
 
                     // remove the extract from our querystring
-                    queryString.Remove(startIndex, extract.Length);
+                    queryString = queryString.Remove(startIndex, extract.Length);
 
                     // update the appropriate property
                     string value = extract.Remove(0, flag.Length);
                     switch (flag) {
                         case _IN_TITLE:
-                            allInTitleTerms.Add(value);
+                            AllInTitleTerms.Add(value);
                             break;
                         case _NOT_IN_TITLE:
-                            notInTitleTerms.Add(value);
+                            NotInTitleTerms.Add(value);
                             break;
                         case _IN_URL:
-                            inUrlTerms.Add(value);
+                            InUrlTerms.Add(value);
                             break;
                         case _NOT_IN_URL:
-                            notInTitleTerms.Add(value);
+                            NotInTitleTerms.Add(value);
                             break;
                         case _INCLUDE_FILETYPE:
-                            includeFiletype.Add(value);
+                            IncludeFiletype.Add(value);
                             break;
                         case _EXCLUDE_FILETYPE:
-                            excludeFiletype.Add(value);
+                            ExcludeFiletype.Add(value);
                             break;
                         case _INCLUDE_SITE:
-                            includeSite = true;
-                            site = value;
+                            IncludeSite = true;
+                            Site = value;
                             break;
                         case _EXCLUDE_SITE:
-                            includeSite = false;
-                            site = value;
+                            IncludeSite = false;
+                            Site = value;
                             break;
                         case _LINK:
-                            link = value;
+                            Link = value;
                             break;
                         case _INFO:
-                            webDocLocation = value;
+                            WebDocLocation = value;
                             break;
                         case _CACHE:
-                            cacheDocLocation = value;
+                            CacheDocLocation = value;
                             break;
                         default:
                             throw new NotImplementedException();
@@ -235,104 +304,104 @@ namespace GSALib.GSA
             }
 
             // anything that is left over is the querystring
-            this.queryString = queryString;
+            this.QueryString = queryString;
         }
         #endregion
 
         #region Get/Set Properties
         public void setQueryString(String queryString)
         {
-            this.queryString = queryString;
+            this.QueryString = queryString;
         }
 
         public void setInTitle(ArrayList inTitleTerms)
         {
-            this.inTitleTerms = inTitleTerms;
+            this.InTitleTerms = inTitleTerms;
         }
 
         public void setNotInTitle(ArrayList notInTitleTerms)
         {
-            this.notInTitleTerms = notInTitleTerms;
+            this.NotInTitleTerms = notInTitleTerms;
         }
 
         public QueryTerm addInTitle(String term, bool include)
         {
-            if (include) inTitleTerms.Add(term);
-            else notInTitleTerms.Add(term);
+            if (include) InTitleTerms.Add(term);
+            else NotInTitleTerms.Add(term);
             return this;
         }
 
         public void setAllInTitle(ArrayList allInTitleTerms)
         {
-            this.allInTitleTerms = allInTitleTerms;
+            this.AllInTitleTerms = allInTitleTerms;
         }
                
         public void setInUrl(ArrayList inUrlTerms)
         {
-            this.inUrlTerms = inUrlTerms;
+            this.InUrlTerms = inUrlTerms;
         }
 
         public void setNotInUrl(ArrayList notInUrlTerms)
         {
-            this.notInUrlTerms = notInUrlTerms;
+            this.NotInUrlTerms = notInUrlTerms;
         }
 
         public QueryTerm addInUrl(String term, bool include)
         {
-            if (include) inUrlTerms.Add(term);
-            else notInUrlTerms.Add(term);
+            if (include) InUrlTerms.Add(term);
+            else NotInUrlTerms.Add(term);
             return this;
         }
 
         public void setAllInUrl(ArrayList allInUrlTerms)
         {
-            this.allInUrlTerms = allInUrlTerms;
+            this.AllInUrlTerms = allInUrlTerms;
         }
 
         public void setIncludeFileType(ArrayList filetype)
         {
-            this.includeFiletype = filetype;
+            this.IncludeFiletype = filetype;
         }
 
         public void setExcludeFileType(ArrayList filetype)
         {
-            this.excludeFiletype = filetype;
+            this.ExcludeFiletype = filetype;
         }
        
         public QueryTerm addFileType(String term, bool include)
         {
             if (include)
             {
-                if (null == includeFiletype) includeFiletype = new ArrayList();
-                includeFiletype.Add(term);
+                if (null == IncludeFiletype) IncludeFiletype = new ArrayList();
+                IncludeFiletype.Add(term);
             }
             else
             {
-                if (null == excludeFiletype) excludeFiletype = new ArrayList();
-                excludeFiletype.Add(term);
+                if (null == ExcludeFiletype) ExcludeFiletype = new ArrayList();
+                ExcludeFiletype.Add(term);
             }
             return this;
         }
 
         public void setSite(String site, bool include)
         {
-            this.includeSite = include;
-            this.site = site;
+            this.IncludeSite = include;
+            this.Site = site;
         }
 
         public void setWebDocument(String docLocation)
         {
-            this.webDocLocation = docLocation;
+            this.WebDocLocation = docLocation;
         }
 
         public void setCachedDocument(String docLocation)
         {
-            this.cacheDocLocation = docLocation;
+            this.CacheDocLocation = docLocation;
         }
 
         public void setWithLinksTo(String link)
         {
-            this.link = link;
+            this.Link = link;
         }
 
         public void setDateRange(DateTime fromDate, DateTime toDate)
@@ -340,7 +409,7 @@ namespace GSALib.GSA
             StringBuilder dateRange = new StringBuilder(fromDate.ToString("YYYY-MM-DD"));
             dateRange.Append("..");
             dateRange.Append(toDate.ToString("YYYY-MM-DD"));
-            this.dateRange = dateRange.ToString();
+            this.DateRange = dateRange.ToString();
         }
         #endregion
 
@@ -349,55 +418,55 @@ namespace GSALib.GSA
         {
             String retval = null;
             StringBuilder qbuf = new StringBuilder();
-            if (allInTitleTerms != null && allInTitleTerms.Count > 0) {
-                qbuf.Append(_ALL_IN_TITLE).Append(Util.SeparatedString(allInTitleTerms, null, _SP)).Append(' ');
+            if (AllInTitleTerms != null && AllInTitleTerms.Count > 0) {
+                qbuf.Append(_ALL_IN_TITLE).Append(Util.SeparatedString(AllInTitleTerms, null, _SP)).Append(' ');
             }
-            if (allInUrlTerms != null && allInUrlTerms.Count > 0) {
-                qbuf.Append(_ALL_IN_URL).Append(Util.SeparatedString(allInUrlTerms, null, _SP)).Append(' ');
-            }
-
-            if (webDocLocation != null && webDocLocation.Length > 0) {
-                qbuf.Append(_INFO).Append(webDocLocation).Append(' ');
+            if (AllInUrlTerms != null && AllInUrlTerms.Count > 0) {
+                qbuf.Append(_ALL_IN_URL).Append(Util.SeparatedString(AllInUrlTerms, null, _SP)).Append(' ');
             }
 
-            if (cacheDocLocation != null && cacheDocLocation.Length > 0) {
-                qbuf.Append(_CACHE).Append(cacheDocLocation).Append(' ');
-            }
-            if (link != null && link.Length > 0) {
-                qbuf.Append(_LINK).Append(link);
+            if (WebDocLocation != null && WebDocLocation.Length > 0) {
+                qbuf.Append(_INFO).Append(WebDocLocation).Append(' ');
             }
 
-            if (inTitleTerms != null && inTitleTerms.Count > 0) {
-                qbuf.Append(Util.SeparatedString(inTitleTerms, _IN_TITLE, _SP)).Append(' ');
+            if (CacheDocLocation != null && CacheDocLocation.Length > 0) {
+                qbuf.Append(_CACHE).Append(CacheDocLocation).Append(' ');
             }
-            if (notInTitleTerms != null && notInTitleTerms.Count > 0) {
-                qbuf.Append(Util.SeparatedString(notInTitleTerms, _NOT_IN_TITLE, _SP)).Append(' ');
-            }
-
-            if (inUrlTerms != null && inUrlTerms.Count > 0) {
-                qbuf.Append(Util.SeparatedString(inUrlTerms, _IN_URL, _SP)).Append(' ');
-            }
-            if (notInUrlTerms != null && notInUrlTerms.Count > 0) {
-                qbuf.Append(Util.SeparatedString(notInUrlTerms, _NOT_IN_URL, _SP)).Append(' ');
+            if (Link != null && Link.Length > 0) {
+                qbuf.Append(_LINK).Append(Link);
             }
 
-            if (site != null && site.Length > 0) {
-                qbuf.Append(includeSite
+            if (InTitleTerms != null && InTitleTerms.Count > 0) {
+                qbuf.Append(Util.SeparatedString(InTitleTerms, _IN_TITLE, _SP)).Append(' ');
+            }
+            if (NotInTitleTerms != null && NotInTitleTerms.Count > 0) {
+                qbuf.Append(Util.SeparatedString(NotInTitleTerms, _NOT_IN_TITLE, _SP)).Append(' ');
+            }
+
+            if (InUrlTerms != null && InUrlTerms.Count > 0) {
+                qbuf.Append(Util.SeparatedString(InUrlTerms, _IN_URL, _SP)).Append(' ');
+            }
+            if (NotInUrlTerms != null && NotInUrlTerms.Count > 0) {
+                qbuf.Append(Util.SeparatedString(NotInUrlTerms, _NOT_IN_URL, _SP)).Append(' ');
+            }
+
+            if (Site != null && Site.Length > 0) {
+                qbuf.Append(IncludeSite
                         ? _INCLUDE_SITE
-                        : _EXCLUDE_SITE).Append(site).Append(' ');
+                        : _EXCLUDE_SITE).Append(Site).Append(' ');
             }
 
-            if (includeFiletype != null && includeFiletype.Count > 0) {
-                qbuf.Append(Util.SeparatedString(includeFiletype, _INCLUDE_FILETYPE, _OR)).Append(' ');
+            if (IncludeFiletype != null && IncludeFiletype.Count > 0) {
+                qbuf.Append(Util.SeparatedString(IncludeFiletype, _INCLUDE_FILETYPE, _OR)).Append(' ');
             }
-            if (excludeFiletype != null && excludeFiletype.Count > 0) {
-                qbuf.Append(Util.SeparatedString(excludeFiletype, _EXCLUDE_FILETYPE, _SP)).Append(' ');
+            if (ExcludeFiletype != null && ExcludeFiletype.Count > 0) {
+                qbuf.Append(Util.SeparatedString(ExcludeFiletype, _EXCLUDE_FILETYPE, _SP)).Append(' ');
             }
-            if (dateRange != null) {
-                qbuf.Append(_DATERANGE).Append(dateRange).Append(' ');
+            if (DateRange != null) {
+                qbuf.Append(_DATERANGE).Append(DateRange).Append(' ');
             }
 
-            if (queryString != null) qbuf.Append(queryString);
+            if (QueryString != null) qbuf.Append(QueryString);
 
             retval = qbuf.ToString();
             return retval;
