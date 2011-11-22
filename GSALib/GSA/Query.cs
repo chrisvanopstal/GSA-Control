@@ -103,6 +103,85 @@ namespace GSALib.GSA
         {
             return queryTerm.getValue();
         }
+
+        /// <summary>
+        /// Pass in a GSA querystring and the object will populate the associated properties.
+        /// </summary>
+        /// <param name="querystring"></param>
+        public void Populate(System.Collections.Specialized.NameValueCollection querystring)
+        {
+            if (querystring["q"] != null) {
+                this.queryTerm.Populate(querystring["q"]);
+            }
+
+            // get result start index
+            this.ScrollAhead = querystring["start"] != null ? Convert.ToInt32(querystring["start"]) : 0;
+
+            // get the sort order
+            if (querystring["sort"] != null) {
+                this.Sort = querystring["sort"];
+            }
+
+            // get any filters
+            if (querystring["filter"] != null) {
+                this.Filter = GSALib.Constants.Filtering.NO_FILTER.getValue();
+            }
+
+            // page-specific search = setAs_sitesearch
+            if (querystring["As_SiteSearch"] != null) {
+                this.SiteSearch = querystring["As_SiteSearch"];
+                this.Filter = GSALib.Constants.Filtering.NO_FILTER.getValue();
+            }
+
+            // exact phrase 
+            if (querystring["as_epq"] != null) {
+                this.ExactPhraseQueryTerm = querystring["as_epq"];
+            }
+
+            // exclude terms
+            if (querystring["as_eq"] != null) {
+                this.ExcludedQueryTerms = querystring["as_eq"];
+            }
+
+            // search only in-url or in-title
+            if (querystring["as_occt"] != null) {
+                switch (querystring["as_occt"]) {
+                    case "url":
+                        this.SearchScope = SearchRegion.URL.getValue();
+                        break;
+                    case "title":
+                        this.SearchScope = SearchRegion.TITLE.getValue();
+                        break;
+                    default:
+                        throw new Exception("Invalid occurrence parameter provided. Expected 'url' or 'title.");
+                }
+            }
+
+            // or query terms
+            if (querystring["as_oq"] != null) {
+                this.OrQueryTerms = querystring["as_oq"].Split(' ');
+            }
+
+            // and query terms
+            if (querystring["as_q"] != null) {
+                this.AndQueryTerms = querystring["as_q"].Split(' ');
+            }
+
+            // language
+            if (!string.IsNullOrEmpty(querystring["lr"])) {
+                this.Language = querystring["lr"];
+            }
+
+            // number of results per page
+            if (querystring["num"] != null) {
+                this.MaxResults = Convert.ToInt32(querystring["num"]);
+            }
+
+            // front end collection
+            if (querystring["site"] != null) {
+                this.Frontend = querystring["site"];
+            }
+        }
         #endregion
     }
 
