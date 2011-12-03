@@ -258,7 +258,9 @@ namespace GSALib.Utils
                         response.addSynonymWithMarkup(attributes["q"] == null ? "" : attributes["q"].ToString());
                     }
                     break;
-                
+                case XMLTags.HN:
+                    currResult.MoreDetailsUrl = attributes["U"].ToString();
+                    break;
             }
             clearContent();
         }
