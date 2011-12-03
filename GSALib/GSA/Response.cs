@@ -37,7 +37,7 @@ namespace GSALib.GSA
         private Spelling spelling;
         private ArrayList synonyms = new ArrayList();
         private ArrayList keyMatches = new ArrayList();
-        private ArrayList results = new ArrayList();
+        private List<Result> results = new List<Result>();
         private ArrayList oneboxResponses = new ArrayList();
         private ArrayList parametricNavigation = new ArrayList();
         private bool isParametricEstimated;
@@ -74,7 +74,7 @@ namespace GSALib.GSA
             isFiltered = filtered;
         }
 
-        public void setResults(ArrayList results)
+        public void setResults(List<Result> results)
         {
             this.results = results;
         }
@@ -234,7 +234,7 @@ namespace GSALib.GSA
             this.startIndex = startIndex;
         }
        
-        public ArrayList getResults()
+        public List<Result> getResults()
         {
             return results;
         }

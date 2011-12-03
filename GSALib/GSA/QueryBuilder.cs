@@ -61,7 +61,7 @@ namespace GSALib.GSA
         public Hashtable requiredfields { get; set; } // meta tag names and complete-values
         public bool requiredFieldsOr = true; // used in conjunction with requiredFields
 
-        public String sort; // Only date is currently supported
+        public String sort { get; set; } // Only date is currently supported
 
         public char AS_DT_INCLUDE = 'i';
         public char AS_DT_EXCLUDE = 'e';

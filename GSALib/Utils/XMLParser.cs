@@ -35,7 +35,7 @@ namespace GSALib.Utils
         private OneBoxResponse currOneBoxResponse;
         private OneBoxResult currOneBoxResult;
         private StringBuilder contentBuff;
-        private ArrayList resultsList;
+        private List<Result> resultsList;
         private ArrayList keyMatchasList;
         private XMLTags xmlTags;
         private bool inSpelling = false;
@@ -59,7 +59,7 @@ namespace GSALib.Utils
         {
             response = new Response();
             contentBuff = new StringBuilder();
-            resultsList = new ArrayList();
+            resultsList = new List<Result>();
             keyMatchasList = new ArrayList();
             currResult = new Result();
             currKeyMatch = new KeyMatches();
