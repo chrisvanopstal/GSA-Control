@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Text;
 using GSALib.Utils;
 using GSALib.Constants;
+using System.Web;
 
 namespace GSALib.GSA
 {
@@ -177,9 +178,14 @@ namespace GSALib.GSA
                 this.MaxResults = Convert.ToInt32(querystring["num"]);
             }
 
-            // front end collection
+            // frontend
+            if (querystring["client"] != null) {
+                this.Frontend = querystring["client"];
+            }
+
+            // site
             if (querystring["site"] != null) {
-                this.Frontend = querystring["site"];
+                this.SiteCollections = HttpUtility.UrlDecode(querystring["site"]).Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
             }
         }
         #endregion
