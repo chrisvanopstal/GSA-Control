@@ -94,7 +94,7 @@
         border: 1px solid #4771b2;
     }
 
-    @media screen and (max-device-width: 4800px) {
+    @media screen and (max-device-width: 480px) {
         .gsa-results-header {font-size:14px; }
         .gsa-results-header .gsa-left-col { width:auto; padding-right: 1em; }
 
