@@ -16,13 +16,13 @@ The control uses a refactored version of the C# [GSALib library][1] to query the
 2. Add "GSA Control Modern.ascx" to your project.
 3. Add the code below to your search page, customizing the variables in uppercase.
 
-    <%@ Register TagName="Modern" TagPrefix="GSA" Src="~/YOUR-PATH/GSA Control Modern.ascx" %>
-	
-	<GSA:Modern runat="server" 
-            Server="YOUR-SERVER" 
-            Frontend="YOUR-FRONTEND" 
-            SiteCollections="YOUR-COLLECTION" 
-            ResultsPerPage="15"  />
+	    <%@ Register TagName="Modern" TagPrefix="GSA" Src="~/YOUR-PATH/GSA Control Modern.ascx" %>
+
+	    <GSA:Modern runat="server" 
+	        Server="YOUR-SERVER" 
+	        Frontend="YOUR-FRONTEND" 
+	        SiteCollections="YOUR-COLLECTION" 
+	        ResultsPerPage="15"  />
 			
 **Server:** The name (or IP address) of your GSA server.
 
