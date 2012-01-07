@@ -9,8 +9,8 @@
     <style type="text/css">
         body { font-family : Arial; margin:2em 7em; }
 
-        @media screen and (max-device-width: 4800px) {
-            body { margin:0; }
+        @media screen and (max-device-width: 480px) {
+            body { margin:0; width:480px; }
         }
     </style>
 </head>
