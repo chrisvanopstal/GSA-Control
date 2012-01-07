@@ -95,7 +95,13 @@
     }
 
     @media screen and (max-device-width: 480px) {
-        .gsa-results-header {font-size:14px; }
+		.gsa-left-col { font-size:110%; }
+		.gsa-right-col { font-size:140%; }
+		.gsa-sort { margin-bottom:1em; font-size:65%;  }
+		.gsa-results { font-size:140%; }
+		.gsa-result-summary { font-size:90%; }
+		.gsa-result-url { line-height:auto; font-size:80%; }
+		.indentation2 { margin-left:1.5em;  }
         .gsa-results-header .gsa-left-col { width:auto; padding-right: 1em; }
 
     }
